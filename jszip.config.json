@@ -1,0 +1,11 @@
+{
+  "compressionLevel": 9,
+  "dereferenceLinks": true,
+  "entries": ["src/background.js", "src/manifest.json"],
+  "force": true,
+  "ignoreEntries": [],
+  "mode": "add",
+  "outputEntry": "dist/tb-plugin.xpi",
+  "quiet": false,
+  "verbose": false
+}
