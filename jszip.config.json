@@ -1,7 +1,12 @@
 {
   "compressionLevel": 9,
   "dereferenceLinks": true,
-  "entries": ["src/background.js", "src/manifest.json"],
+  "entries": [
+    "src/background.js",
+    "src/manifest.json",
+    "src/preferences.html",
+    "src/preferences.js"
+  ],
   "force": true,
   "ignoreEntries": [],
   "mode": "add",
