@@ -2,7 +2,7 @@
     "compressionLevel": 9,
     "dereferenceLinks": true,
     "entries": [
-        "index.html",
+        "src/index.html",
         "src/manifest.json",
         "dist/background.js",
         "dist/index.js"
@@ -10,7 +10,7 @@
     "force": true,
     "ignoreEntries": [],
     "mode": "add",
-    "outputEntry": "dist/tb-plugin.xpi",
+    "outputEntry": "dist/daily-reports.xpi",
     "quiet": false,
     "verbose": true
 }
