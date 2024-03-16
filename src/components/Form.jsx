@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Select, Space } from 'antd'
+import Label from './Label'
 
 const months = [
     'Jan',
@@ -99,6 +100,11 @@ export const MyForm = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
+                backgroundColor: 'rgba(46, 45, 45)',
+                color: 'white',
+                height: '100vh',
+                width: '100vw',
+                overflowX: 'hidden',
             }}
         >
             <Form
@@ -127,9 +133,9 @@ export const MyForm = () => {
                 <Form.Item
                     name="to"
                     label={
-                        <label>
+                        <Label fontColor="white">
                             <strong>To:</strong>
-                        </label>
+                        </Label>
                     }
                     rules={[{ required: false }]}
                 >
@@ -138,9 +144,9 @@ export const MyForm = () => {
                 <Form.Item
                     name="cc"
                     label={
-                        <label>
+                        <Label fontColor="white">
                             <strong>CC:</strong>
-                        </label>
+                        </Label>
                     }
                     rules={[{ required: false }]}
                 >
@@ -149,9 +155,9 @@ export const MyForm = () => {
                 <Form.Item
                     name="projectName"
                     label={
-                        <label>
+                        <Label fontColor="white">
                             <strong>Project Name:</strong>
-                        </label>
+                        </Label>
                     }
                     rules={[{ required: false }]}
                 >
