@@ -109,6 +109,21 @@ export const MyForm = () => {
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 400 }}
             >
+                {/* <Form.Item
+                    name="profile"
+                    label={
+                        <label>
+                            <strong>Profile:</strong>
+                        </label>
+                    }
+                    rules={[{ required: false }]}
+                >
+                    <Select>
+                        <Select.Option value="1">Profile 1</Select.Option>
+                        <Select.Option value="2">Profile 2</Select.Option>
+                        <Select.Option value="3">Profile 3</Select.Option>
+                    </Select>
+                </Form.Item> */}
                 <Form.Item
                     name="to"
                     label={

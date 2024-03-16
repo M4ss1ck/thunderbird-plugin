@@ -2,7 +2,7 @@
     "compressionLevel": 9,
     "dereferenceLinks": true,
     "entries": [
-        "src/index.html",
+        "static/index.html",
         "src/manifest.json",
         "dist/background.js",
         "dist/index.js"

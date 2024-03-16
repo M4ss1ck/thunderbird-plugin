@@ -9,5 +9,8 @@ export default defineConfig({
             entry: ['src/index.jsx', 'src/background.js'],
             formats: ['es'],
         },
+        rollupOptions: {
+            external: ['static'],
+        },
     },
 })
