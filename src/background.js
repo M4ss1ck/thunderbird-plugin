@@ -13,7 +13,7 @@ const months = [
     'Dec',
 ]
 
-let projectName = import.meta.env.VITE_PROJECT
+let projectName = import.meta.env.VITE_PROJECT ?? ''
 let toArray = import.meta.env.VITE_TO ? import.meta.env.VITE_TO.split(',') : []
 let ccArray = import.meta.env.VITE_CC ? import.meta.env.VITE_CC.split(',') : []
 
