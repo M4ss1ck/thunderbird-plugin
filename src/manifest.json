@@ -1,12 +1,12 @@
 {
     "manifest_version": 2,
-    "version": "0.0.5",
+    "version": "0.0.6",
     "author": "Massick",
-    "name": "Daily Report",
+    "name": "Daily Reports",
     "description": "Add To, CC and Subject",
     "browser_specific_settings": {
         "gecko": {
-            "id": "massick.daily.report@sample.extensions.thunderbird.net"
+            "id": "massick.daily.report@cool.extensions.thunderbird.net"
         }
     },
     "permissions": ["compose", "storage"],
@@ -14,7 +14,7 @@
         "scripts": ["background.js"]
     },
     "compose_action": {
-        "default_title": "Add Details"
+        "default_title": "Daily Reports"
     },
     "web_accessible_resources": ["index.html", "index.js"]
 }
