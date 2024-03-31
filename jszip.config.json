@@ -1,16 +1,16 @@
 {
-  "compressionLevel": 9,
-  "dereferenceLinks": true,
-  "entries": [
-    "src/background.js",
-    "src/manifest.json",
-    "src/preferences.html",
-    "src/preferences.js"
-  ],
-  "force": true,
-  "ignoreEntries": [],
-  "mode": "add",
-  "outputEntry": "dist/tb-plugin.xpi",
-  "quiet": false,
-  "verbose": false
+    "compressionLevel": 9,
+    "dereferenceLinks": true,
+    "entries": [
+        "static/index.html",
+        "src/manifest.json",
+        "dist/background.js",
+        "dist/index.js"
+    ],
+    "force": true,
+    "ignoreEntries": [],
+    "mode": "add",
+    "outputEntry": "dist/daily-reports.xpi",
+    "quiet": false,
+    "verbose": true
 }
