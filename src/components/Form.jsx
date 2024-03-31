@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, Select, Space } from 'antd'
+import { Button, Form, Input, Radio, Space, Checkbox } from 'antd'
 import Label from './Label'
 
 const months = [
@@ -24,33 +24,42 @@ const tailLayout = {
 }
 
 export const MyForm = () => {
-    // const [toArray, setToArray] = useState('')
-    // const [ccArray, setCcArray] = useState('')
-    // const [projectName, setProjectName] = useState('')
+    const profiles = ['Profile1', 'Profile2', 'Profile3']
+    const [profile, setProfile] = useState(profiles[0])
 
     const [form] = Form.useForm()
 
     useEffect(() => {
         if (typeof browser !== 'undefined') {
-            browser.storage.local
-                .get(['toArray', 'ccArray', 'projectName'])
-                .then((result) => {
-                    // setToArray(result.toArray?.join(',') || '')
-                    // setCcArray(result.ccArray?.join(',') || '')
-                    // setProjectName(result.projectName || '')
-                    form.setFieldsValue({
-                        to: result.toArray?.join(',') || '',
-                        cc: result.ccArray?.join(',') || '',
-                        projectName: result.projectName || '',
-                    })
+            browser.storage.local.get(['details']).then((result) => {
+                if (!result.details) return
+                const details = JSON.parse(result.details)
+                const values = revertProfiles(details)
+                const currentProfile = Object.keys(details).find(
+                    (key) => details[key].currentProfile
+                )
+                if (currentProfile) {
+                    setProfile(currentProfile)
+                }
+                form.setFieldsValue({
+                    ...values,
+                    profile: currentProfile ?? profiles[0],
                 })
+            })
         }
     }, [])
 
     const onFinish = async (values) => {
-        console.log(values)
-        if (!browser) return
+        if (typeof browser === 'undefined') return
         let tabId = undefined
+
+        const parsedValues = convertProfiles(values)
+        for (const key in parsedValues) {
+            if (key === profile) {
+                parsedValues[key].currentProfile = true
+                break
+            }
+        }
 
         await browser.storage.local.get(['tabId']).then((result) => {
             if (result.tabId) {
@@ -58,15 +67,18 @@ export const MyForm = () => {
             }
         })
 
-        const toArray = values?.to.split(',') || []
-        const ccArray = values?.cc.split(',') || []
-        const projectName = values?.projectName || ''
+        const profileData = parsedValues[profile]
+        const toArray = profileData?.to?.split(',') || []
+        const ccArray = profileData?.cc?.split(',') || []
+        const projectName = profileData?.projectName || ''
+        const addDate = profileData?.addDate || false
 
         if (tabId) {
             const date = new Date()
-            const subject = `${projectName} Work (${
-                months[date.getMonth()]
-            } ${date.getDate()})`
+            let subject = `${projectName}`
+            if (addDate) {
+                subject += ` (${months[date.getMonth()]} ${date.getDate()})`
+            }
             browser.compose
                 .setComposeDetails(tabId, {
                     to: toArray,
@@ -76,9 +88,7 @@ export const MyForm = () => {
                 .then(() => {
                     browser.storage.local
                         .set({
-                            toArray,
-                            ccArray,
-                            projectName,
+                            details: JSON.stringify(parsedValues),
                         })
                         .then(() => window.close())
                 })
@@ -91,6 +101,10 @@ export const MyForm = () => {
 
     const onReset = () => {
         form.resetFields()
+    }
+
+    const handleProfileChange = (e) => {
+        setProfile(e.target.value)
     }
 
     return (
@@ -111,58 +125,32 @@ export const MyForm = () => {
                 form={form}
                 name="my-form"
                 onFinish={onFinish}
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 400 }}
+                labelCol={{ span: 6 }}
+                wrapperCol={{ span: 18 }}
+                style={{ maxWidth: 700 }}
             >
-                {/* <Form.Item
+                <Form.Item
                     name="profile"
                     label={
-                        <label>
+                        <Label fontColor="white">
                             <strong>Profile:</strong>
-                        </label>
-                    }
-                    rules={[{ required: false }]}
-                >
-                    <Select>
-                        <Select.Option value="1">Profile 1</Select.Option>
-                        <Select.Option value="2">Profile 2</Select.Option>
-                        <Select.Option value="3">Profile 3</Select.Option>
-                    </Select>
-                </Form.Item> */}
-                <Form.Item
-                    name="to"
-                    label={
-                        <Label fontColor="white">
-                            <strong>To:</strong>
                         </Label>
                     }
                     rules={[{ required: false }]}
                 >
-                    <TextArea rows={5} />
+                    <Radio.Group onChange={handleProfileChange} value={profile}>
+                        {profiles.map((p) => (
+                            <Radio key={'radio-' + p} value={p}>
+                                <Label fontColor="white">{p}</Label>
+                            </Radio>
+                        ))}
+                    </Radio.Group>
                 </Form.Item>
-                <Form.Item
-                    name="cc"
-                    label={
-                        <Label fontColor="white">
-                            <strong>CC:</strong>
-                        </Label>
-                    }
-                    rules={[{ required: false }]}
-                >
-                    <TextArea rows={5} />
-                </Form.Item>
-                <Form.Item
-                    name="projectName"
-                    label={
-                        <Label fontColor="white">
-                            <strong>Project Name:</strong>
-                        </Label>
-                    }
-                    rules={[{ required: false }]}
-                >
-                    <Input />
-                </Form.Item>
+
+                {profiles.map((p) => (
+                    <FormItems key={p} profile={p} visible={p === profile} />
+                ))}
+
                 <Form.Item {...tailLayout}>
                     <Space>
                         <Button type="primary" htmlType="submit">
@@ -176,4 +164,88 @@ export const MyForm = () => {
             </Form>
         </div>
     )
+}
+
+const FormItems = ({ profile = '', visible = false }) => {
+    return (
+        <div
+            style={{
+                display: visible ? 'block' : 'none',
+            }}
+        >
+            <Form.Item
+                name={profile + 'to'}
+                label={
+                    <Label fontColor="white">
+                        <strong>To:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+            >
+                <TextArea rows={5} />
+            </Form.Item>
+            <Form.Item
+                name={profile + 'cc'}
+                label={
+                    <Label fontColor="white">
+                        <strong>CC:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+            >
+                <TextArea rows={5} />
+            </Form.Item>
+            <Form.Item
+                name={profile + 'projectName'}
+                label={
+                    <Label fontColor="white">
+                        <strong>Subject:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name={profile + 'addDate'}
+                label={
+                    <Label fontColor="white">
+                        <strong>Add date:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+                valuePropName="checked"
+            >
+                <Checkbox />
+            </Form.Item>
+        </div>
+    )
+}
+
+function convertProfiles(obj) {
+    const profiles = {}
+
+    for (const key in obj) {
+        const match = key.match(/(Profile\d+)(\w+)/)
+        if (match) {
+            const profileName = match[1]
+            const fieldName = match[2]
+            if (!profiles[profileName]) {
+                profiles[profileName] = {}
+            }
+            profiles[profileName][fieldName] = obj[key]
+        }
+    }
+    return profiles
+}
+
+function revertProfiles(profiles) {
+    const obj = {}
+    for (const profileName in profiles) {
+        for (const fieldName in profiles[profileName]) {
+            const newKey = `${profileName}${fieldName}`
+            obj[newKey] = profiles[profileName][fieldName]
+        }
+    }
+    return obj
 }
