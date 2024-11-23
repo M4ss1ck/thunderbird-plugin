@@ -5,7 +5,7 @@ function promptUserPreferences() {
         url: 'index.html',
         type: 'popup',
         width: 720,
-        height: 700,
+        height: 720,
         allowScriptsToClose: true,
     })
 }

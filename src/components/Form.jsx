@@ -133,8 +133,8 @@ export const MyForm = () => {
                 form={form}
                 name="my-form"
                 onFinish={onFinish}
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18 }}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 700 }}
             >
                 <Form.Item
@@ -190,7 +190,7 @@ const FormItems = ({ profile = '', visible = false }) => {
                 }
                 rules={[{ required: false }]}
             >
-                <TextArea rows={5} />
+                <TextArea rows={3} />
             </Form.Item>
             <Form.Item
                 name={profile + 'cc'}
