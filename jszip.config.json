@@ -3,6 +3,7 @@
     "dereferenceLinks": true,
     "entries": [
         "static/index.html",
+        "static/icon.svg",
         "src/manifest.json",
         "dist/background.js",
         "dist/index.js"
