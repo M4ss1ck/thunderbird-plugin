@@ -72,18 +72,26 @@ export const MyForm = () => {
         const ccArray = profileData?.cc?.split(',') || []
         const projectName = profileData?.projectName || ''
         const addDate = profileData?.addDate || false
+        const addSignature = profileData?.addSignature || false
+        const signature = profileData?.signature || ''
 
         if (tabId) {
             const date = new Date()
             let subject = `${projectName}`
+            let body = ''
             if (addDate) {
                 subject += ` (${months[date.getMonth()]} ${date.getDate()})`
             }
+            if (addSignature) {
+                body += `\n\n${signature}`
+            }
+            // https://webextension-api.thunderbird.net/en/latest/compose.html#compose-composedetails
             browser.compose
                 .setComposeDetails(tabId, {
                     to: toArray,
                     cc: ccArray,
                     subject,
+                    body,
                 })
                 .then(() => {
                     browser.storage.local
@@ -217,6 +225,29 @@ const FormItems = ({ profile = '', visible = false }) => {
                 valuePropName="checked"
             >
                 <Checkbox />
+            </Form.Item>
+            <Form.Item
+                name={profile + 'addSignature'}
+                label={
+                    <Label fontColor="white">
+                        <strong>Add signature:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+                valuePropName="checked"
+            >
+                <Checkbox />
+            </Form.Item>
+            <Form.Item
+                name={profile + 'signature'}
+                label={
+                    <Label fontColor="white">
+                        <strong>Signature:</strong>
+                    </Label>
+                }
+                rules={[{ required: false }]}
+            >
+                <TextArea rows={5} />
             </Form.Item>
         </div>
     )
