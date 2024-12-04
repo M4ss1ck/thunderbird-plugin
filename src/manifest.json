@@ -1,12 +1,12 @@
 {
     "manifest_version": 2,
-    "version": "0.0.8",
+    "version": "0.0.9",
     "author": "Massick",
     "name": "Daily Reports",
     "description": "Add To, CC and Subject",
     "browser_specific_settings": {
         "gecko": {
-            "id": "massick.daily.report@cool.extensions.thunderbird.net"
+            "id": "daily.report@massick.dev"
         }
     },
     "permissions": ["compose", "storage"],
