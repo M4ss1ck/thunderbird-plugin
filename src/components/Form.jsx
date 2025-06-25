@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Form, Input, Radio, Space, Checkbox } from 'antd'
 import Label from './Label'
+import { TemplateUpload } from './TemplateUpload'
 
 const months = [
     'Jan',
@@ -120,13 +121,14 @@ export const MyForm = () => {
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
+                justifyContent: 'flex-start',
                 alignItems: 'center',
                 backgroundColor: 'rgba(46, 45, 45)',
                 color: 'white',
-                height: '100vh',
+                minHeight: '100vh',
                 width: '100vw',
                 overflowX: 'hidden',
+                padding: '20px 0',
             }}
         >
             <Form
@@ -153,6 +155,16 @@ export const MyForm = () => {
                             </Radio>
                         ))}
                     </Radio.Group>
+                </Form.Item>
+
+                <Form.Item
+                    label={
+                        <Label fontColor="white">
+                            <strong>Load Template:</strong>
+                        </Label>
+                    }
+                >
+                    <TemplateUpload form={form} profile={profile} />
                 </Form.Item>
 
                 {profiles.map((p) => (
