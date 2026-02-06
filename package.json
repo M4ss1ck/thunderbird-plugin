@@ -9,7 +9,8 @@
         "export": "npm run sync-version && vite build && jszip-cli -c jszip.config.json",
         "dev": "vite",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "release": "bash scripts/release.sh"
     },
     "keywords": [],
     "author": "Massick",
