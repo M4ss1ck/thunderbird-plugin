@@ -1,0 +1,100 @@
+:root {
+    color-scheme: light dark;
+    font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    background: #f4f7fb;
+}
+
+body {
+    margin: 0;
+    min-width: 0;
+    background: #f4f7fb;
+}
+
+.qc-shell {
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 20px;
+    background: linear-gradient(180deg, #f7faff 0%, #eef3f8 100%);
+    color: #172033;
+}
+
+.qc-panel {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.qc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.qc-title.ant-typography {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.qc-template-controls {
+    flex: 1;
+    justify-content: flex-end;
+    min-width: 0;
+}
+
+.qc-template-select {
+    min-width: 220px;
+    max-width: 320px;
+}
+
+.qc-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.qc-options {
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.qc-option {
+    margin-bottom: 0;
+}
+
+.qc-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 12px;
+}
+
+@media (max-width: 560px) {
+    .qc-shell {
+        padding: 16px;
+    }
+
+    .qc-header {
+        flex-direction: column;
+    }
+
+    .qc-template-controls,
+    .qc-template-select {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root,
+    body {
+        background: #15181d;
+    }
+
+    .qc-shell {
+        background: #15181d;
+        color: #eef2f7;
+    }
+}
