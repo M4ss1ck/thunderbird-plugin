@@ -75,22 +75,4 @@ export const convertToTemplatePatch = (parsedData) => {
     return patch
 }
 
-/**
- * Convert parsed email data to form values for a specific profile
- * @param {Object} parsedData - Data from parseEmlTemplate
- * @param {string} profile - Profile name (e.g., 'Profile1')
- * @returns {Object} Form values object
- */
-export const convertToFormValues = (parsedData, profile) => {
-    const formValues = {}
-    formValues[profile + 'to'] = parsedData.to
-    formValues[profile + 'cc'] = parsedData.cc
-    formValues[profile + 'projectName'] = parsedData.subject
-    // Add raw HTML body as signature if we have it
-    if (parsedData.body) {
-        formValues[profile + 'signature'] = parsedData.body
-        formValues[profile + 'addSignature'] = true
-    }
 
-    return formValues
-}
