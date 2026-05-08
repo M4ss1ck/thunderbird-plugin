@@ -10,7 +10,6 @@ import {
     Space,
     Tooltip,
     Typography,
-    message,
 } from 'antd'
 import {
     CopyOutlined,
@@ -54,7 +53,11 @@ export const MyForm = () => {
 
     const saveCurrentTemplatePatch = () => {
         const values = form.getFieldsValue()
-        const nextState = updateTemplate(templateState, currentTemplate.id, values)
+        const nextState = updateTemplate(
+            templateState,
+            currentTemplate.id,
+            values
+        )
         setTemplateState(nextState)
         return nextState
     }
@@ -70,7 +73,9 @@ export const MyForm = () => {
 
     const handleAddTemplate = () => {
         const savedState = saveCurrentTemplatePatch()
-        const template = createEmptyTemplate(`Template ${savedState.templates.length + 1}`)
+        const template = createEmptyTemplate(
+            `Template ${savedState.templates.length + 1}`
+        )
         const nextState = normalizeTemplateState({
             ...savedState,
             currentTemplateId: template.id,
@@ -108,10 +113,14 @@ export const MyForm = () => {
 
                 if (!name) return
 
-                const nextState = updateTemplate(templateState, currentTemplate.id, {
-                    ...form.getFieldsValue(),
-                    name,
-                })
+                const nextState = updateTemplate(
+                    templateState,
+                    currentTemplate.id,
+                    {
+                        ...form.getFieldsValue(),
+                        name,
+                    }
+                )
                 setTemplateState(nextState)
                 form.setFieldsValue(getCurrentTemplate(nextState))
             },
@@ -121,11 +130,15 @@ export const MyForm = () => {
     const handleDeleteTemplate = () => {
         Modal.confirm({
             title: 'Delete Template',
-            content: 'This will remove the selected template. If it is the last one, it will become a fresh empty template.',
+            content:
+                'This will remove the selected template. If it is the last one, it will become a fresh empty template.',
             okText: 'Delete',
             okButtonProps: { danger: true },
             onOk: () => {
-                const nextState = removeTemplate(templateState, currentTemplate.id)
+                const nextState = removeTemplate(
+                    templateState,
+                    currentTemplate.id
+                )
                 setTemplateState(nextState)
                 form.setFieldsValue(getCurrentTemplate(nextState))
             },
@@ -140,7 +153,11 @@ export const MyForm = () => {
             okButtonProps: { danger: true },
             onOk: () => {
                 const cleared = resetTemplate(currentTemplate)
-                const nextState = updateTemplate(templateState, currentTemplate.id, cleared)
+                const nextState = updateTemplate(
+                    templateState,
+                    currentTemplate.id,
+                    cleared
+                )
                 setTemplateState(nextState)
                 form.setFieldsValue(cleared)
             },
@@ -150,7 +167,11 @@ export const MyForm = () => {
     const onFinish = async (values) => {
         if (typeof browser === 'undefined') return
 
-        const nextState = updateTemplate(templateState, currentTemplate.id, values)
+        const nextState = updateTemplate(
+            templateState,
+            currentTemplate.id,
+            values
+        )
         const selectedTemplate = getCurrentTemplate(nextState)
         let tabId
 
@@ -198,17 +219,25 @@ export const MyForm = () => {
                             <Select
                                 value={templateState.currentTemplateId}
                                 onChange={handleTemplateChange}
-                                options={templateState.templates.map((template) => ({
-                                    value: template.id,
-                                    label: template.name,
-                                }))}
+                                options={templateState.templates.map(
+                                    (template) => ({
+                                        value: template.id,
+                                        label: template.name,
+                                    })
+                                )}
                                 className="qc-template-select"
                             />
                             <Tooltip title="Add template">
-                                <Button icon={<FileAddOutlined />} onClick={handleAddTemplate} />
+                                <Button
+                                    icon={<FileAddOutlined />}
+                                    onClick={handleAddTemplate}
+                                />
                             </Tooltip>
                             <Tooltip title="Rename template">
-                                <Button icon={<EditOutlined />} onClick={handleRenameTemplate} />
+                                <Button
+                                    icon={<EditOutlined />}
+                                    onClick={handleRenameTemplate}
+                                />
                             </Tooltip>
                             <Tooltip title="Duplicate template">
                                 <Button
@@ -296,7 +325,10 @@ export const MyForm = () => {
                         >
                             {({ getFieldValue }) =>
                                 getFieldValue('addSignature') ? (
-                                    <Form.Item name="signature" label="Signature">
+                                    <Form.Item
+                                        name="signature"
+                                        label="Signature"
+                                    >
                                         <Input.TextArea rows={5} />
                                     </Form.Item>
                                 ) : null
@@ -304,7 +336,9 @@ export const MyForm = () => {
                         </Form.Item>
 
                         <footer className="qc-footer">
-                            <Button onClick={handleClearTemplate}>Clear Template</Button>
+                            <Button onClick={handleClearTemplate}>
+                                Clear Template
+                            </Button>
                             <Button type="primary" htmlType="submit">
                                 Fill Email
                             </Button>
