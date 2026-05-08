@@ -1,3 +1,5 @@
+import { splitAddressList } from './templateStorage'
+
 /**
  * Utility functions for parsing .emltpl (email template) files
  */
@@ -56,6 +58,21 @@ export const parseEmlTemplate = (content) => {
         from: headers.from ? headers.from.trim() : '',
         body: body,
     }
+}
+
+export const convertToTemplatePatch = (parsedData) => {
+    const patch = {
+        to: splitAddressList(parsedData.to),
+        cc: splitAddressList(parsedData.cc),
+        subject: parsedData.subject || '',
+    }
+
+    if (parsedData.body) {
+        patch.signature = parsedData.body
+        patch.addSignature = true
+    }
+
+    return patch
 }
 
 /**
