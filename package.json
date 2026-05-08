@@ -6,10 +6,11 @@
     "main": "index.html",
     "scripts": {
         "sync-version": "node scripts/sync-version.cjs",
-        "export": "npm run sync-version && vite build && jszip-cli -c jszip.config.json",
-        "dev": "vite",
+        "export": "npm run sync-version && npm run build:extension && jszip-cli -c jszip.config.json",
+        "dev": "vite --host 127.0.0.1",
         "build": "vite build",
-        "preview": "vite preview",
+        "build:extension": "vite build --mode extension",
+        "preview": "npm run build && vite preview --host 127.0.0.1",
         "release": "bash scripts/release.sh",
         "test": "vitest run",
         "test:watch": "vitest"

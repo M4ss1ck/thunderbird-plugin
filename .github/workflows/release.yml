@@ -38,7 +38,7 @@ jobs:
           node scripts/sync-version.cjs
 
       - name: Build and package XPI
-        run: pnpm build && pnpm exec jszip-cli -c jszip.config.json
+        run: pnpm build:extension && pnpm exec jszip-cli -c jszip.config.json
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

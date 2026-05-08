@@ -2,15 +2,29 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
-export default defineConfig({
-    plugins: [react(), nodePolyfills()],
-    build: {
-        lib: {
-            entry: ['src/index.jsx', 'src/background.js'],
-            formats: ['es'],
+export const createViteConfig = ({ mode }) => {
+    const isExtensionBuild = mode === 'extension'
+
+    return {
+        plugins: [react(), nodePolyfills()],
+        optimizeDeps: {
+            entries: ['index.html'],
         },
-        rollupOptions: {
-            external: ['static'],
-        },
-    },
-})
+        build: isExtensionBuild
+            ? {
+                  outDir: 'dist',
+                  lib: {
+                      entry: ['src/index.jsx', 'src/background.js'],
+                      formats: ['es'],
+                  },
+                  rollupOptions: {
+                      external: ['static'],
+                  },
+              }
+            : {
+                  outDir: 'dist-preview',
+              },
+    }
+}
+
+export default defineConfig(createViteConfig)
