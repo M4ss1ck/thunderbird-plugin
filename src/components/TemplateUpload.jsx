@@ -47,14 +47,7 @@ export const TemplateUpload = ({ onTemplatePatch }) => {
             showUploadList={false}
             maxCount={1}
         >
-            <Button
-                icon={<UploadOutlined />}
-                style={{
-                    backgroundColor: '#1890ff',
-                    borderColor: '#1890ff',
-                    color: 'white',
-                }}
-            >
+            <Button icon={<UploadOutlined />}>
                 Load .emltpl File
             </Button>
         </Upload>

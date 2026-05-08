@@ -10,6 +10,7 @@ import {
     Space,
     Tooltip,
     Typography,
+    theme,
 } from 'antd'
 import {
     CopyOutlined,
@@ -203,9 +204,39 @@ export const MyForm = () => {
     return (
         <ConfigProvider
             theme={{
+                algorithm: theme.darkAlgorithm,
                 token: {
                     borderRadius: 6,
-                    colorPrimary: '#1677ff',
+                    colorBgBase: '#0e1218',
+                    colorBgContainer: '#151b24',
+                    colorBgElevated: '#1a212c',
+                    colorBorder: '#2d3746',
+                    colorBorderSecondary: '#242d39',
+                    colorPrimary: '#4f8cff',
+                    colorText: '#f4f7fb',
+                    colorTextSecondary: '#b7c0ce',
+                    colorTextTertiary: '#8f9aaa',
+                    controlHeight: 36,
+                    fontFamily:
+                        'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                },
+                components: {
+                    Button: {
+                        defaultBg: '#1b2430',
+                        defaultBorderColor: '#344153',
+                        defaultColor: '#f4f7fb',
+                    },
+                    Form: {
+                        labelColor: '#d9e2ef',
+                        verticalLabelPadding: '0 0 6px',
+                    },
+                    Input: {
+                        activeBorderColor: '#669dff',
+                        hoverBorderColor: '#4f8cff',
+                    },
+                    Select: {
+                        optionSelectedBg: '#24324a',
+                    },
                 },
             }}
         >
