@@ -7,4 +7,10 @@ describe('extension html', () => {
 
         expect(html).toContain('src="./index.js"')
     })
+
+    it('loads the bundled stylesheet with an explicit relative URL', () => {
+        const html = readFileSync('static/index.html', 'utf8')
+
+        expect(html).toContain('href="./style.css"')
+    })
 })

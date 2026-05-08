@@ -15,4 +15,15 @@ describe('package scripts', () => {
         expect(scripts.preview).toContain('npm run build')
         expect(scripts.preview).toContain('vite preview')
     })
+
+    it('exports a dev build with a generated dev manifest', () => {
+        expect(scripts['prepare-export:dev']).toBe(
+            'node scripts/prepare-dev-export.cjs'
+        )
+        expect(scripts['export:dev']).toContain('npm run build:extension')
+        expect(scripts['export:dev']).toContain('npm run prepare-export:dev')
+        expect(scripts['export:dev']).toContain(
+            'jszip-cli -c jszip.dev.config.json'
+        )
+    })
 })

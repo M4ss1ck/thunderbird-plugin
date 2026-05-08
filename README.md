@@ -20,3 +20,8 @@ In order to use the actual plugin, you can:
 - Install this repository with `pnpm i` (`npm i` and `yarn` should work too), then run `pnpm build` (or `npm run build` or `yarn build`) and your plugin would be inside `dist` directory.
 
 Once you have the `xpi` file, import it in Thunderbird and start using it.
+
+For local Thunderbird testing, run `pnpm export:dev`. This creates
+`dist-dev/daily-reports-dev.xpi` with the extension id
+`daily.report.dev@massick.dev`, so it can be installed alongside the regular
+`dist/daily-reports.xpi` build.

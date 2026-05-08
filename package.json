@@ -7,6 +7,8 @@
     "scripts": {
         "sync-version": "node scripts/sync-version.cjs",
         "export": "npm run sync-version && npm run build:extension && jszip-cli -c jszip.config.json",
+        "prepare-export:dev": "node scripts/prepare-dev-export.cjs",
+        "export:dev": "npm run sync-version && npm run build:extension && npm run prepare-export:dev && jszip-cli -c jszip.dev.config.json",
         "dev": "vite --host 127.0.0.1",
         "build": "vite build",
         "build:extension": "vite build --mode extension",
