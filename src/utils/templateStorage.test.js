@@ -6,6 +6,7 @@ import {
     normalizeTemplateState,
     removeTemplate,
     resetTemplate,
+    templateToComposeDetails,
 } from './templateStorage'
 
 describe('template storage', () => {
@@ -130,5 +131,42 @@ describe('template storage', () => {
             addSignature: false,
             signature: '',
         })
+    })
+})
+
+describe('templateToComposeDetails', () => {
+    it('maps template fields to Thunderbird compose details', () => {
+        const details = templateToComposeDetails(
+            {
+                ...createEmptyTemplate('Daily'),
+                to: ['boss@example.com'],
+                cc: ['lead@example.com'],
+                subject: 'Daily Report',
+                addDate: false,
+                addSignature: true,
+                signature: 'Thanks',
+            },
+            new Date('2026-05-08T12:00:00Z')
+        )
+
+        expect(details).toEqual({
+            to: ['boss@example.com'],
+            cc: ['lead@example.com'],
+            subject: 'Daily Report',
+            body: '\n\nThanks',
+        })
+    })
+
+    it('appends date when enabled', () => {
+        const details = templateToComposeDetails(
+            {
+                ...createEmptyTemplate('Daily'),
+                subject: 'Daily Report',
+                addDate: true,
+            },
+            new Date('2026-05-08T12:00:00Z')
+        )
+
+        expect(details.subject).toBe('Daily Report (May 8)')
     })
 })

@@ -186,3 +186,39 @@ export function updateTemplate(state, templateId, patch) {
         templates,
     })
 }
+
+const MONTHS = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+]
+
+export function templateToComposeDetails(template, date = new Date()) {
+    const normalized = normalizeTemplate(template)
+    let subject = normalized.subject
+    let body = ''
+
+    if (normalized.addDate) {
+        subject += ` (${MONTHS[date.getMonth()]} ${date.getDate()})`
+    }
+
+    if (normalized.addSignature) {
+        body += `\n\n${normalized.signature}`
+    }
+
+    return {
+        to: normalized.to,
+        cc: normalized.cc,
+        subject,
+        body,
+    }
+}
